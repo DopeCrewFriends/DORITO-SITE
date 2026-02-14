@@ -174,6 +174,6 @@ async function loadTreasuryBalance() {
     }
 }
 
-// Refresh balance every 30 seconds
-setInterval(loadTreasuryBalance, 30000);
+// Refresh balance every 10 seconds for real-time updates
+setInterval(loadTreasuryBalance, 10000);
 

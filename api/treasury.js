@@ -7,7 +7,7 @@ import { Connection, PublicKey } from '@solana/web3.js';
 let cache = {
     data: null,
     timestamp: null,
-    ttl: 30000 // 30 seconds cache
+    ttl: 10000 // 10 seconds cache - frequent updates for real-time balance tracking
 };
 
 export default async function handler(req, res) {
@@ -90,16 +90,51 @@ export default async function handler(req, res) {
             console.error('Error fetching token balance:', error);
         }
 
-        // Fetch token price
+        // Fetch token price - Try multiple free APIs
         let tokenPrice = 0;
+        
+        // Method 1: DexScreener API (best for pump.fun tokens, no API key needed)
         try {
-            const tokenPriceResponse = await fetch(`https://price.jup.ag/v4/price?ids=${TOKEN_ADDRESS}`);
-            const tokenPriceData = await tokenPriceResponse.json();
-            if (tokenPriceData.data && tokenPriceData.data[TOKEN_ADDRESS]) {
-                tokenPrice = tokenPriceData.data[TOKEN_ADDRESS].price || 0;
+            const dexScreenerResponse = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${TOKEN_ADDRESS}`);
+            const dexScreenerData = await dexScreenerResponse.json();
+            if (dexScreenerData.pairs && dexScreenerData.pairs.length > 0) {
+                // Get the pair with the highest liquidity
+                const bestPair = dexScreenerData.pairs
+                    .filter(pair => pair.priceUsd && !isNaN(parseFloat(pair.priceUsd)))
+                    .sort((a, b) => parseFloat(b.liquidity?.usd || 0) - parseFloat(a.liquidity?.usd || 0))[0];
+                
+                if (bestPair && bestPair.priceUsd) {
+                    tokenPrice = parseFloat(bestPair.priceUsd);
+                }
             }
         } catch (error) {
-            console.error('Error fetching token price:', error);
+            console.error('Error fetching token price from DexScreener:', error);
+        }
+        
+        // Method 2: Jupiter API (fallback)
+        if (!tokenPrice || tokenPrice === 0) {
+            try {
+                const tokenPriceResponse = await fetch(`https://price.jup.ag/v4/price?ids=${TOKEN_ADDRESS}`);
+                const tokenPriceData = await tokenPriceResponse.json();
+                if (tokenPriceData.data && tokenPriceData.data[TOKEN_ADDRESS]) {
+                    tokenPrice = tokenPriceData.data[TOKEN_ADDRESS].price || 0;
+                }
+            } catch (error) {
+                console.error('Error fetching token price from Jupiter:', error);
+            }
+        }
+        
+        // Method 3: Birdeye API (fallback - requires free API key if needed)
+        if (!tokenPrice || tokenPrice === 0) {
+            try {
+                const birdeyeResponse = await fetch(`https://public-api.birdeye.so/defi/price?address=${TOKEN_ADDRESS}`);
+                const birdeyeData = await birdeyeResponse.json();
+                if (birdeyeData.data && birdeyeData.data.value) {
+                    tokenPrice = parseFloat(birdeyeData.data.value);
+                }
+            } catch (error) {
+                console.error('Error fetching token price from Birdeye:', error);
+            }
         }
 
         // Calculate values
