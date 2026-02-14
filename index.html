@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dorito - The Cat Who Beat The Odds</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>🐱 DORITO</h1>
+            </div>
+            <div class="nav-links">
+                <a href="#story">Story</a>
+                <a href="#token">Token</a>
+                <a href="#treasury">Treasury</a>
+                <a href="#links">Links</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Meet Dorito</h1>
+                <p class="hero-subtitle">The viral kitten with giant eyes who beat the odds</p>
+                <p class="hero-description">
+                    Dorito survived ocular FIP, a rare condition that threatened her sight. 
+                    Through antiviral treatment and intensive care, she's now fully healthy and thriving. 
+                    Her distinctive wide-eyed look tells the story of her incredible recovery.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#token" class="btn btn-primary">View Token</a>
+                    <a href="#story" class="btn btn-secondary">Read Her Story</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Treasury Section -->
+    <section id="treasury" class="treasury-section">
+        <div class="container">
+            <h2 class="section-title">Treasury Wallet</h2>
+            <div class="treasury-info">
+                <div class="treasury-card">
+                    <div class="treasury-icon">💰</div>
+                    <h3>Treasury Balance</h3>
+                    <div class="balance-display">
+                        <div class="balance-item">
+                            <span class="balance-label">SOL Balance:</span>
+                            <span class="balance-value" id="solBalance">Loading...</span>
+                        </div>
+                        <div class="balance-item">
+                            <span class="balance-label">Token Balance:</span>
+                            <span class="balance-value" id="tokenBalance">Loading...</span>
+                        </div>
+                        <div class="balance-total">
+                            <span class="total-label">Total Value:</span>
+                            <span class="total-value" id="totalValue">$0.00</span>
+                        </div>
+                    </div>
+                    <p class="treasury-description">Fees generated from the DORITO token are collected in this treasury wallet</p>
+                    <div class="address-container">
+                        <code class="address" id="treasuryAddress">DU36b69V7KHiABHZuSQ5EPi3BRjwrJ8tqair1a95LPSY</code>
+                        <button class="copy-btn" onclick="copyToClipboard('DU36b69V7KHiABHZuSQ5EPi3BRjwrJ8tqair1a95LPSY', 'treasuryAddress')">
+                            <span class="copy-icon">📋</span>
+                            <span class="copy-text">Copy</span>
+                        </button>
+                    </div>
+                    <div class="treasury-links">
+                        <a href="https://solscan.io/account/DU36b69V7KHiABHZuSQ5EPi3BRjwrJ8tqair1a95LPSY" target="_blank" class="btn btn-secondary">View on Solscan</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section id="story" class="story-section">
+        <div class="container">
+            <h2 class="section-title">Her Story</h2>
+            <div class="story-content">
+                <div class="story-card">
+                    <h3>The Diagnosis</h3>
+                    <p>Dorito was diagnosed with ocular FIP (feline infectious peritonitis), a virus that caused severe inflammation in her eyes. The inflammation blocked fluid drainage, increasing pressure to the point of glaucoma.</p>
+                </div>
+                <div class="story-card">
+                    <h3>The Battle</h3>
+                    <p>Because kittens have a stretchy sclera, even moderate pressure can cause the eyes to enlarge quickly. That pressure led to Dorito's now signature wide-eyed look that stunned social media users.</p>
+                </div>
+                <div class="story-card">
+                    <h3>The Recovery</h3>
+                    <p>With antiviral treatment and intensive eye care, the glaucoma has resolved, her corneal ulcers have healed, and her eye pressure is now stable. She's no longer in pain and is thriving.</p>
+                </div>
+                <div class="story-card">
+                    <h3>Today</h3>
+                    <p>Now fully healthy, Dorito has been left with a distinctive appearance that has captured attention online. She has found her forever home and continues to inspire with her story of survival.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Token Information Section -->
+    <section id="token" class="token-section">
+        <div class="container">
+            <h2 class="section-title">DORITO Token</h2>
+            <div class="token-info">
+                <div class="token-card">
+                    <div class="token-image-container">
+                        <img src="token image.jpg" alt="Dorito Token" class="token-image">
+                    </div>
+                    <h3>Token Address</h3>
+                    <div class="address-container">
+                        <code class="address" id="tokenAddress">H6KgtksNwiEe3bBpAcXFcC7za3d3V9Y4inayFyCPyy4j</code>
+                        <button class="copy-btn" onclick="copyToClipboard('H6KgtksNwiEe3bBpAcXFcC7za3d3V9Y4inayFyCPyy4j', 'tokenAddress')">
+                            <span class="copy-icon">📋</span>
+                            <span class="copy-text">Copy</span>
+                        </button>
+                    </div>
+                    <div class="token-links">
+                        <a href="https://pump.fun" target="_blank" class="btn btn-primary">Buy on Pump.fun</a>
+                        <a href="https://solscan.io/token/H6KgtksNwiEe3bBpAcXFcC7za3d3V9Y4inayFyCPyy4j" target="_blank" class="btn btn-secondary">View on Solscan</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Links Section -->
+    <section id="links" class="links-section">
+        <div class="container">
+            <h2 class="section-title">Connect With Us</h2>
+            <div class="links-grid">
+                <a href="https://pump.fun" target="_blank" class="link-card">
+                    <span class="link-icon">🚀</span>
+                    <h3>Pump.fun</h3>
+                    <p>Trade DORITO</p>
+                </a>
+                <a href="https://solscan.io/token/H6KgtksNwiEe3bBpAcXFcC7za3d3V9Y4inayFyCPyy4j" target="_blank" class="link-card">
+                    <span class="link-icon">🔍</span>
+                    <h3>Solscan</h3>
+                    <p>View Token Details</p>
+                </a>
+                <a href="https://www.dexerto.com/entertainment/viral-kitten-with-giant-eyes-due-to-rare-condition-beats-disease-and-is-now-fully-healthy-3318112/" target="_blank" class="link-card">
+                    <span class="link-icon">📰</span>
+                    <h3>Original Story</h3>
+                    <p>Read the Full Article</p>
+                </a>
+                <a href="https://x.com/DoritoSolana" target="_blank" class="link-card">
+                    <span class="link-icon">🐦</span>
+                    <h3>Official X</h3>
+                    <p>Follow @DoritoSolana</p>
+                </a>
+                <a href="https://x.com/i/communities/2021975556451877225" target="_blank" class="link-card">
+                    <span class="link-icon">👥</span>
+                    <h3>X Community</h3>
+                    <p>Join the Community</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 DORITO Token. Inspired by the incredible story of Dorito the cat.</p>
+            <p class="footer-note">Always do your own research. This is not financial advice.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

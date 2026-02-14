@@ -1,0 +1,16 @@
+{
+  "name": "dorito-website",
+  "version": "1.0.0",
+  "description": "DORITO Token Website",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "@solana/web3.js": "^1.95.4"
+  },
+  "engines": {
+    "node": ">=18.x"
+  }
+}
+
