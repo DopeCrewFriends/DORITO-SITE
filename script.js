@@ -157,12 +157,12 @@ async function loadTreasuryBalance() {
         // Extract values from API response
         const { solBalance, solPrice, solValueUSD, tokenBalance, tokenPrice, tokenValueUSD, totalValue } = treasuryData;
         
-        // Update UI
-        solBalanceEl.textContent = `${formatNumber(solBalance)} SOL ($${formatNumber(solValueUSD)})`;
+        // Update UI - Clean format without labels
+        solBalanceEl.textContent = `${formatNumber(solBalance)} SOL • $${formatNumber(solValueUSD)}`;
         if (tokenBalance > 0) {
-            tokenBalanceEl.textContent = `${formatLargeNumber(tokenBalance)} DORITO ($${formatNumber(tokenValueUSD)})`;
+            tokenBalanceEl.textContent = `${formatLargeNumber(tokenBalance)} DORITO • $${formatNumber(tokenValueUSD)}`;
         } else {
-            tokenBalanceEl.textContent = '0.00 DORITO ($0.00)';
+            tokenBalanceEl.textContent = '0.00 DORITO • $0.00';
         }
         totalValueEl.textContent = `$${formatNumber(totalValue)}`;
         

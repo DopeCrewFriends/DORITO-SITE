@@ -25,3 +25,4 @@ SOLANA_WSS_URL=wss://restless-weathered-telescope.solana-mainnet.quiknode.pro/f6
 
 **Note**: `.env.local` is already in `.gitignore` and won't be committed to GitHub.
 
+

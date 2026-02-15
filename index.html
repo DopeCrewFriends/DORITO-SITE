@@ -48,26 +48,26 @@
     <!-- Treasury Section -->
     <section id="treasury" class="treasury-section">
         <div class="container">
-            <h2 class="section-title">Treasury Wallet</h2>
+            <h2 class="section-title">Dorito Treasury</h2>
             <div class="treasury-info">
                 <div class="treasury-card">
-                    <div class="treasury-icon">💰</div>
-                    <h3>Treasury Balance</h3>
                     <div class="balance-display">
                         <div class="balance-item">
-                            <span class="balance-label">SOL Balance:</span>
-                            <span class="balance-value" id="solBalance">Loading...</span>
+                            <div class="balance-left">
+                                <img src="solana-sol-logo.png" alt="SOL" class="balance-logo">
+                                <span class="balance-value" id="solBalance">Loading...</span>
+                            </div>
                         </div>
                         <div class="balance-item">
-                            <span class="balance-label">Token Balance:</span>
-                            <span class="balance-value" id="tokenBalance">Loading...</span>
+                            <div class="balance-left">
+                                <img src="token image.jpg" alt="DORITO" class="balance-logo">
+                                <span class="balance-value" id="tokenBalance">Loading...</span>
+                            </div>
                         </div>
                         <div class="balance-total">
-                            <span class="total-label">Total Value:</span>
                             <span class="total-value" id="totalValue">$0.00</span>
                         </div>
                     </div>
-                    <p class="treasury-description">Fees generated from the DORITO token are collected in this treasury wallet</p>
                     <div class="address-container">
                         <code class="address" id="treasuryAddress">DU36b69V7KHiABHZuSQ5EPi3BRjwrJ8tqair1a95LPSY</code>
                         <button class="copy-btn" onclick="copyToClipboard('DU36b69V7KHiABHZuSQ5EPi3BRjwrJ8tqair1a95LPSY', 'treasuryAddress')">
