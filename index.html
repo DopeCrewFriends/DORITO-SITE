@@ -48,9 +48,9 @@
     <!-- Treasury Section -->
     <section id="treasury" class="treasury-section">
         <div class="container">
-            <h2 class="section-title">Dorito Treasury</h2>
-            <div class="treasury-info">
-                <div class="treasury-card">
+            <h2 class="section-title">Treasury</h2>
+            <div class="treasury-grid">
+                <div class="treasury-card treasury-balance-card">
                     <div class="balance-display">
                         <div class="balance-item">
                             <div class="balance-left">
@@ -75,14 +75,12 @@
                             <span class="copy-text">Copy</span>
                         </button>
                     </div>
-                    <div class="treasury-history">
-                        <h3 class="treasury-history-title">Recent activity</h3>
-                        <div class="treasury-history-list" id="treasuryHistoryList">
-                            <div class="treasury-history-loading" id="treasuryHistoryLoading">Loading...</div>
-                        </div>
-                    </div>
-                    <div class="treasury-links">
-                        <a href="https://solscan.io/account/DU36b69V7KHiABHZuSQ5EPi3BRjwrJ8tqair1a95LPSY" target="_blank" class="btn btn-secondary">View on Solscan</a>
+                    <a href="https://solscan.io/account/DU36b69V7KHiABHZuSQ5EPi3BRjwrJ8tqair1a95LPSY" target="_blank" class="btn btn-secondary treasury-solscan-btn">View on Solscan</a>
+                </div>
+                <div class="treasury-card treasury-activity-card">
+                    <h3 class="treasury-activity-title">Recent activity</h3>
+                    <div class="treasury-history-list" id="treasuryHistoryList">
+                        <div class="treasury-history-loading" id="treasuryHistoryLoading">Loading...</div>
                     </div>
                 </div>
             </div>

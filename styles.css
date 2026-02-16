@@ -362,20 +362,55 @@ section {
     background: var(--dark-bg);
 }
 
-.treasury-info {
-    display: flex;
-    justify-content: center;
+.treasury-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: stretch;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .treasury-card {
-    background: var(--card-bg);
-    padding: 2rem;
-    border-radius: 30px;
-    border: 2px solid rgba(255, 215, 0, 0.3);
+    background: rgba(26, 26, 26, 0.8);
+    backdrop-filter: blur(12px);
+    padding: 1.75rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.treasury-card:hover {
+    border-color: rgba(255, 215, 0, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.treasury-balance-card {
     text-align: center;
-    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+.treasury-activity-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 320px;
+}
+
+.treasury-activity-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.treasury-solscan-btn {
+    margin-top: 1rem;
     width: 100%;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    justify-content: center;
 }
 
 .treasury-icon {
@@ -396,19 +431,19 @@ section {
 }
 
 .balance-display {
-    background: rgba(0, 0, 0, 0.3);
-    padding: 1.5rem;
-    border-radius: 15px;
-    margin-bottom: 1.5rem;
-    border: 1px solid rgba(255, 215, 0, 0.2);
+    background: rgba(0, 0, 0, 0.35);
+    padding: 1.25rem;
+    border-radius: 14px;
+    margin-bottom: 1.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .balance-item {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.65rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .balance-item:last-of-type {
@@ -422,8 +457,8 @@ section {
 }
 
 .balance-logo {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     object-fit: cover;
     flex-shrink: 0;
@@ -437,17 +472,18 @@ section {
 .balance-value {
     color: var(--accent);
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-family: 'Courier New', monospace;
+    letter-spacing: 0.02em;
 }
 
 .balance-total {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1rem 0 0;
-    margin-top: 0.75rem;
-    border-top: 2px solid rgba(255, 215, 0, 0.3);
+    padding: 0.85rem 0 0;
+    margin-top: 0.5rem;
+    border-top: 1px solid rgba(255, 215, 0, 0.2);
 }
 
 .total-label {
@@ -459,38 +495,44 @@ section {
 .total-value {
     color: var(--accent);
     font-weight: 700;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-family: 'Courier New', monospace;
+    letter-spacing: 0.02em;
     background: var(--gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-.treasury-history {
-    margin-bottom: 1.5rem;
-    text-align: left;
-}
-
-.treasury-history-title {
-    font-size: 1rem;
-    color: var(--text-secondary);
-    margin-bottom: 0.75rem;
-    font-weight: 600;
-}
-
 .treasury-history-list {
-    background: rgba(0, 0, 0, 0.25);
+    background: rgba(0, 0, 0, 0.2);
     border-radius: 12px;
-    padding: 0.5rem 0;
-    max-height: 280px;
+    padding: 0.35rem 0;
+    flex: 1;
+    min-height: 200px;
+    max-height: 320px;
     overflow-y: auto;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.treasury-history-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.treasury-history-list::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.treasury-history-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 3px;
 }
 
 .treasury-history-loading {
     color: var(--text-secondary);
-    font-size: 0.9rem;
-    padding: 1rem;
+    font-size: 0.875rem;
+    padding: 1.25rem;
     text-align: center;
 }
 
@@ -499,12 +541,12 @@ section {
     align-items: center;
     justify-content: space-between;
     gap: 0.75rem;
-    padding: 0.6rem 1rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    font-size: 0.9rem;
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    font-size: 0.85rem;
     text-decoration: none;
     color: inherit;
-    transition: background 0.2s;
+    transition: background 0.2s ease;
 }
 
 .treasury-tx-item:last-child {
@@ -512,7 +554,7 @@ section {
 }
 
 .treasury-tx-item:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.04);
 }
 
 .treasury-tx-type {
@@ -520,6 +562,7 @@ section {
     align-items: center;
     gap: 0.5rem;
     color: var(--text-secondary);
+    font-weight: 500;
 }
 
 .treasury-tx-type.sol { color: #9945ff; }
@@ -528,6 +571,7 @@ section {
 .treasury-tx-amount {
     font-weight: 600;
     font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
 }
 
 .treasury-tx-amount.in { color: #4ade80; }
@@ -535,14 +579,22 @@ section {
 
 .treasury-tx-time {
     color: var(--text-secondary);
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     flex-shrink: 0;
+    opacity: 0.9;
 }
 
-.treasury-links {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
+@media (max-width: 900px) {
+    .treasury-grid {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .treasury-activity-card {
+        min-height: 280px;
+    }
 }
 
 /* Links Section */
