@@ -467,6 +467,78 @@ section {
     background-clip: text;
 }
 
+.treasury-history {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.treasury-history-title {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.treasury-history-list {
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    padding: 0.5rem 0;
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+.treasury-history-loading {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    padding: 1rem;
+    text-align: center;
+}
+
+.treasury-tx-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.2s;
+}
+
+.treasury-tx-item:last-child {
+    border-bottom: none;
+}
+
+.treasury-tx-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.treasury-tx-type {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+}
+
+.treasury-tx-type.sol { color: #9945ff; }
+.treasury-tx-type.dorito { color: var(--primary-color); }
+
+.treasury-tx-amount {
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+}
+
+.treasury-tx-amount.in { color: #4ade80; }
+.treasury-tx-amount.out { color: #f87171; }
+
+.treasury-tx-time {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    flex-shrink: 0;
+}
+
 .treasury-links {
     display: flex;
     gap: 1rem;

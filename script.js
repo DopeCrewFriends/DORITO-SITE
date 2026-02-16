@@ -91,8 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(el);
     });
     
-    // Load treasury balance on page load
+    // Load treasury balance and transaction history on page load
     loadTreasuryBalance();
+    loadTreasuryHistory();
 });
 
 // Fetch treasury balance from our API endpoint (with caching)
@@ -176,4 +177,56 @@ async function loadTreasuryBalance() {
 
 // Refresh balance every 10 seconds for real-time updates
 setInterval(loadTreasuryBalance, 10000);
+
+// Treasury transaction history
+async function fetchTreasuryHistory() {
+    try {
+        const response = await fetch('/api/treasury-history');
+        if (!response.ok) throw new Error('Failed to fetch history');
+        const data = await response.json();
+        return data.transactions || [];
+    } catch (error) {
+        console.error('Error fetching treasury history:', error);
+        return null;
+    }
+}
+
+function formatTimeAgo(blockTime) {
+    if (!blockTime) return '';
+    const sec = Math.floor(Date.now() / 1000 - blockTime);
+    if (sec < 60) return 'Just now';
+    if (sec < 3600) return Math.floor(sec / 60) + 'm ago';
+    if (sec < 86400) return Math.floor(sec / 3600) + 'h ago';
+    if (sec < 604800) return Math.floor(sec / 86400) + 'd ago';
+    return new Date(blockTime * 1000).toLocaleDateString();
+}
+
+function loadTreasuryHistory() {
+    const listEl = document.getElementById('treasuryHistoryList');
+    const loadingEl = document.getElementById('treasuryHistoryLoading');
+    if (!listEl || !loadingEl) return;
+
+    fetchTreasuryHistory().then((txs) => {
+        loadingEl.remove();
+        if (!txs || txs.length === 0) {
+            listEl.innerHTML = '<div class="treasury-history-loading">No recent activity</div>';
+            return;
+        }
+        listEl.innerHTML = txs.map((tx) => {
+            const typeClass = tx.type === 'sol_transfer' ? 'sol' : 'dorito';
+            const typeLabel = tx.type === 'sol_transfer' ? 'SOL' : 'DORITO';
+            const amountClass = tx.direction === 'in' ? 'in' : 'out';
+            return `<a href="${tx.url}" target="_blank" rel="noopener" class="treasury-tx-item">
+                <span class="treasury-tx-type ${typeClass}">${typeLabel}</span>
+                <span class="treasury-tx-amount ${amountClass}">${tx.amountFormatted}</span>
+                <span class="treasury-tx-time">${formatTimeAgo(tx.blockTime)}</span>
+            </a>`;
+        }).join('');
+    }).catch(() => {
+        loadingEl.textContent = 'Unable to load activity';
+    });
+}
+
+// Refresh history every 60 seconds
+setInterval(loadTreasuryHistory, 60000);
 
