@@ -10,6 +10,9 @@ let cache = {
     ttl: 10000 // 10 seconds cache - frequent updates for real-time balance tracking
 };
 
+// Last known SOL price - used when price APIs fail (avoids showing $0)
+let lastKnownSolPrice = null;
+
 export default async function handler(req, res) {
     // Set CORS headers
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -44,22 +47,53 @@ export default async function handler(req, res) {
         const treasuryPublicKey = new PublicKey(TREASURY_ADDRESS);
         const tokenMintPublicKey = new PublicKey(TOKEN_ADDRESS);
 
-        // Fetch SOL price
+        // Fetch SOL price - try multiple sources, keep last known price on failure
         let solPrice = null;
-        try {
-            const solPriceResponse = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd');
-            const solPriceData = await solPriceResponse.json();
-            solPrice = solPriceData.solana?.usd || null;
-        } catch (error) {
-            console.error('Error fetching SOL price:', error);
-            // Fallback to Binance
-            try {
-                const binanceResponse = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=SOLUSDT');
-                const binanceData = await binanceResponse.json();
-                solPrice = parseFloat(binanceData.price);
-            } catch (err) {
-                console.error('Error fetching SOL price from fallback:', err);
+
+        const priceSources = [
+            async () => {
+                const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd', {
+                    headers: { 'Accept': 'application/json' }
+                });
+                const data = await res.json();
+                const p = data?.solana?.usd;
+                return typeof p === 'number' ? p : null;
+            },
+            async () => {
+                const res = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=SOLUSDT');
+                const data = await res.json();
+                const p = data?.price ? parseFloat(data.price) : null;
+                return Number.isFinite(p) ? p : null;
+            },
+            async () => {
+                const res = await fetch('https://api.kraken.com/0/public/Ticker?pair=SOLUSD');
+                const data = await res.json();
+                const pair = data?.result?.SOLUSD ?? data?.result?.SOLUSDT;
+                const p = pair?.c?.[0] ? parseFloat(pair.c[0]) : null;
+                return Number.isFinite(p) ? p : null;
+            },
+            async () => {
+                const res = await fetch('https://price.jup.ag/v4/price?ids=So11111111111111111111111111111111111111112');
+                const data = await res.json();
+                const p = data?.data?.['So11111111111111111111111111111111111111112']?.price;
+                return Number.isFinite(p) ? p : null;
             }
+        ];
+
+        for (const fetchPrice of priceSources) {
+            try {
+                solPrice = await fetchPrice();
+                if (solPrice != null && solPrice > 0) {
+                    lastKnownSolPrice = solPrice;
+                    break;
+                }
+            } catch (err) {
+                // try next source
+            }
+        }
+
+        if (solPrice == null || solPrice <= 0) {
+            solPrice = lastKnownSolPrice;
         }
 
         // Fetch SOL balance using web3.js
